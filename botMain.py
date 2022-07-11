@@ -8,6 +8,7 @@ import time
 from functionsFFMPEG import functionFFMPEG
 from moviepy.editor import VideoFileClip
 import requests as rq
+
 #variables
 path = pathlib.Path(__file__).parent.resolve()
 token=str(os.environ.get("token_AnythingToSticker"))
@@ -23,13 +24,18 @@ def download_file(url,name): #file download from url
                 f.write(chunk)
     return name
 
+# Start
+@bot.message_handler(commands=['start'])
+async def start_message(message):
+    await bot.send_message(message.chat.id, 'Hello!')
+    
 #file convert
 @bot.message_handler(content_types=['animation','video','photo'])
 async def media_process(message):
     result_message = await bot.send_message(message.chat.id, '<i>Processing...</i>', parse_mode='HTML', disable_web_page_preview=True,reply_to_message_id=message.id)
     file_id = (message.photo[-1].file_id if (message.content_type=='photo') else (message.animation.file_id if (message.content_type=='animation') else message.video.file_id))
     file_path = await bot.get_file(file_id)
-    name='tmp/'+(file_id) +('.jpg' if (message.content_type=='photo') else '.mp4')
+    name =f"{cwd}/tmp/{file_id}{'.jpg' if (message.content_type=='photo') else '.mp4'}"
     converted_name=name.replace('.'+name.split('.')[-1],'.png' if (message.content_type=='photo') else '.webm')
     download_file(f'https://api.telegram.org/file/bot{token}/{file_path.file_path}',name)
     if message.content_type!='photo':
@@ -53,7 +59,7 @@ def main():
     if token == 'None':
         logging.critical('token is None')
         exit('Token is not selected')
-    tmpPath = pathlib.Path(f"{cwd}./tmp").mkdir(parents=True, exist_ok=True)
+    tmpPath = pathlib.Path(f"{cwd}/tmp").mkdir(parents=True, exist_ok=True)
     while True:
         try:
             asyncio.run(bot.polling(none_stop=True, timeout=180, interval=1))
