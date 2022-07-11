@@ -16,7 +16,7 @@ cwd = pathlib.Path(__file__).parent.resolve()
 
 #functions
 def download_file(url,name): #file download from url
-    with rq.get(url, stream=True, timeout=3600,headers=headers) as r:
+    with rq.get(url, stream=True, timeout=3600) as r:
         r.raise_for_status()
         with open(name, 'wb') as f:
             for chunk in r.iter_content(chunk_size=1024):
