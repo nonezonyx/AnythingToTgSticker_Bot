@@ -8,7 +8,7 @@ import time
 from functionsFFMPEG import functionFFMPEG
 
 #variables
-token=str(os.environ.get("token_randLocBot"))
+token=str(os.environ.get("token_AnythingToSticker"))
 bot=AsyncTeleBot(token)
 path = pathlib.Path(__file__).parent.resolve()
 
