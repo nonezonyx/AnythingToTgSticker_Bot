@@ -54,7 +54,7 @@ async def media_process(message):
 
 #boot
 def main():
-    logging.basicConfig(filename='bot.log', encoding='utf-8', level=logging.INFO, format='%(asctime)s %(levelname)s: %(message)s')
+    logging.basicConfig(filename=f'{cwd}/bot.log', encoding='utf-8', level=logging.INFO, format='%(asctime)s %(levelname)s: %(message)s')
     logging.info(f'file path = {cwd}')
     if token == 'None':
         logging.critical('token is None')
