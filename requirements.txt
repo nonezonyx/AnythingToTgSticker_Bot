@@ -1,0 +1,6 @@
+asyncio
+pyTelegramBotAPI
+requests
+aiohttp
+pathlib
+moviepy
