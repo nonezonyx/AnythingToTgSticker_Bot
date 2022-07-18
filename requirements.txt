@@ -3,5 +3,4 @@ pyTelegramBotAPI
 requests
 aiohttp
 pathlib
-moviepy
 python-ffmpeg
